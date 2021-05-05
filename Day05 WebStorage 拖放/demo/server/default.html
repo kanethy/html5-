@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拖放上传</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    #region {
+      width: 600px;
+      height: 150px;
+      border: 1px solid #ccc;
+      background-color: azure;
+      line-height: 150px;
+      text-align: center;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="scripts/axios.min.js"></script>
+  <div id="region">将文件拖放到此实现上传</div>
+  <script>
+    // 获取目标对象
+    let regionEle = document.getElementById('region');
+    // 为目标对象添加dragover事件
+    regionEle.ondragover = function (event) {
+      event.preventDefault();
+    }
+    // 为目标对象添加drop事件
+    regionEle.ondrop = function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      //获取到拖放所形成的FileList对象
+      let filelist = event.dataTransfer.files;
+      // 创建表单数据对象
+      let formData = new FormData();
+      // 在表单数据对象中添加数据(这些数据是由键/值对组成)
+      formData.set('username', '12345');
+      formData.set('password', 'abcde');
+      //在formData中最最重要的是将拖放的文件数据放在里面，然后提交
+      for (let i = 0, n = filelist.length; i < n; i++) {
+        //获取到File对象
+        let file = filelist.item(i);
+        formData.append('avatar',file);
+      }
+      // 提交"表单"
+      axios.post('http://127.0.0.1:3000/', formData);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #charts {
+            width: 800px;
+            height: 480px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <dir id="charts"></dir>
+    <script src="scripts/echarts.min.js"></script>
+    <script>
+        let divEle =document.getElementById('charts');
+        let instance = echarts.init(divEle);
+        instance.setOption({
+            title:{
+                show:true,
+                text:'2020年618销售统计图',
+                subtext:'报表人:张三',
+                left:'center'
+            },
+            xAxis:{
+                show:true,
+                type:'category',
+                data:['数码音影','服装服饰','美容美妆','家电用品','家居家具']
+            },
+            yAxis:{
+
+            },
+            series:[
+                {
+                    type:'bar',
+                    data:[300,678,849,289,390]
+                },
+                {
+                    type:'line',
+                    data:[300,678,849,289,390]
+                }
+            ]
+        });
+    </script>
+</body>
+</html>

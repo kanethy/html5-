@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #canvas{
+      display: block;
+      margin: 0 auto;
+      border:1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <script>
+      let dataset = [
+          {
+            text:'家电用器',
+            sales:210
+          },
+          {
+            text:'音像制品',
+            sales:125
+          },
+          {
+            text:'手机通讯',
+            sales:98
+          },
+          {
+            text:'服装服饰',
+            sales:9
+          },
+          {
+            text:'家居家具',
+            sales:225
+          }
+
+      ];
+      //获取HTMLCanvasElement对象
+      let canvasEle = document.getElementById('canvas');
+      //获取CanvasRenderingContext2D对象
+      let ctx = canvasEle.getContext('2d');
+      //用于存储柱子的宽度
+      let width = 50;
+      //计算间隔的数量
+      let spacerNum = dataset.length - 1;
+      //计算间隔的距离
+      let spacerWidth = Math.ceil((canvasEle.width - dataset.length * width ) / spacerNum);
+      //设置填充颜色
+      ctx.fillStyle = '#900';
+      //设置文本样式
+      ctx.font = '16px Microsoft Yahei';
+      //设置文本水平对齐方式
+      ctx.textAlign='center';
+      //通过循环结构来绘制柱形图
+      dataset.forEach((item,index)=>{
+          //console.log(item.text + '--' + item.sales);
+          //计算X轴与Y轴的位置
+          let x = index * (spacerWidth + width);
+          let y = canvasEle.height-item.sales;
+          //绘制填充矩形
+          ctx.fillRect(x,y,width,item.sales);   
+          //绘制文本
+          ctx.fillText(item.sales,x+Math.floor(width/2),y-5) ;
+      });
+  </script>
+</body>
+</html>

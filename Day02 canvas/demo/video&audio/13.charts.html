@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas{
+            display: block;
+            border: 1px solid red;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <script>
+        let dataset=[
+            {
+                text:'家用电器',
+                sales:210
+            },
+            {
+                text:'音影制品',
+                sales:330
+            },
+            {
+                text:'手机通讯',
+                sales:100
+            },
+            {
+                text:'服装服饰',
+                sales:360
+            }
+        ];
+        //获取获取HTMLCanvasElement元素
+        let canvasEle=document.getElementById('canvas');
+        //获取CanvasRenderingContext2D对象
+        let ctx=canvasEle.getContext('2d');
+        //设置一个变量。存储柱子的宽度
+        let width = 50;
+        //计算间隔的数量
+        let spacerNum=dataset.length-1;
+        //计算间隔的宽度
+        let spacerWidth=Math.ceil((canvasEle.width-dataset.length*width)/spacerNum);
+        //设置柱形图的颜色
+        ctx.fillStyle='#900';
+        //设置文本的样式
+        ctx.font='16px Microsoft Yahei';
+        //通过循环结构来绘制柱形图
+        //item是数组中的每个子元素，index是下标
+        dataset.forEach((item,index)=>{
+            //console.log(item.text+"------"+item.sales);
+            //保存X和Y轴的数据
+            let x=index*(spacerWidth+width);
+            let y=canvasEle.height-item.sales;
+            //填充柱形图
+            ctx.fillRect(x,y,width,item.sales);
+            //绘制文本
+            ctx.fillText(item.sales,x+5,y-5);
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      padding: 0;
+    }
+
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+    }
+
+    #container {
+      width: 600px;
+      margin: 0 auto;
+      ;
+    }
+
+    .input {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <canvas id="canvas"></canvas>
+    <div class="input">
+      <input type="text" id="text">
+      <button onclick="add()">发表</button>
+    </div>
+  </div>
+  <script>
+
+    function add() {
+      let textEle = document.getElementById('text');
+      let textVal = textEle.value;
+      let object = {};
+      object.color = colors[Math.floor(Math.random() * colors.length)];
+      //产生字号
+      object.fontsize = random(14, 16);
+      //产生速度,实质上是每次移动的距离
+      object.speed = random(1, 5);
+      //产生文本
+      object.text = textVal;
+      //产生X轴,因为弹幕文本在最右侧,所以为画布的宽度
+      object.x = canvasEle.width;
+      //为了防止文本的垂直重合
+      object.y = random(20,canvasEle.height-20);
+      array.push(object);
+    }
+
+    /**
+    * 产生指定范围的随机数
+    * 
+    * @param int min,最小值
+    * @param int max,最大值
+    *
+    * @return int
+    */
+    function random(min, max) {
+      return Math.ceil(Math.random() * (max - min)) + min;
+    }
+
+    let canvasEle = document.getElementById('canvas');
+    canvasEle.width = 600;
+    canvasEle.height = 400;
+    let ctx = canvasEle.getContext('2d');
+    //提供了弹幕文本
+    let bubbles = [
+      '我是来看赤赤的',
+      '这个女的演的好差,不想看了',
+      '那个时候有大哥大吗?瞎演',
+      '不错，看好赤赤哟'
+    ];
+    let colors = ['#f00', '#0f0', '#00f', '#000'];
+    //通过循环结构得到期望的弹幕文本对象
+    let array = [];
+    bubbles.forEach((item, index) => {
+      //产生对象
+      let object = {};
+      //产生颜色
+      object.color = colors[Math.floor(Math.random() * colors.length)];
+      //产生字号
+      object.fontsize = random(14, 16);
+      //产生速度,实质上是每次移动的距离
+      object.speed = random(1, 5);
+      //产生文本
+      object.text = item;
+      //产生X轴,因为弹幕文本在最右侧,所以为画布的宽度
+      object.x = canvasEle.width;
+      //为了防止文本的垂直重合
+      object.y = (index + 1) * 20;
+      array.push(object);
+    });
+
+    console.log(array);
+    function draw() {
+      // 擦除整个画布
+      ctx.clearRect(0, 0, canvasEle.width, canvasEle.height);
+      //遍历绘制
+      array.forEach(object => {
+        // 设置文本颜色
+        ctx.fillStyle = object.color;
+        // 设置文本样式
+        ctx.font = object.fontsize + 'px Microsoft Yahei';
+        // 绘制文本
+        ctx.fillText(object.text, object.x, object.y);
+        // 设置文本的X轴位置 
+        object.x -= object.speed;
+      });
+      //间隔15ms后重新调用draw()函数以绘制动画的另外一帧
+      window.requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+
+</html>

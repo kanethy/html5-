@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="styles/reset.css">
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+		}
+
+		#container {
+			width: 100%;
+			height: 100%;
+		}
+
+		#icons {
+			padding: 20px;
+		}
+
+		#icons img {
+			width: 48px;
+			height: 48px;
+		}
+
+		#icons li {
+			margin: 20px 0;
+		}
+	</style>
+</head>
+
+<body>
+	<ul id="icons">
+		<li><img src="images/recycle_bin_empty.png" id="recycle"></li>
+		<li><img src="images/excel.png" class="icon-item"></li>
+		<li><img src="images/html.png" class="icon-item"></li>
+		<li><img src="images/mp4.png" class="icon-item"></li>
+		<li><img src="images/word.png" class="icon-item"></li>
+		<li><img src="images/ppt.png" class="icon-item"></li>
+	</ul>
+	<script>
+		document.body.onload = function () {
+			var images = ['123640.jpg', '216322.jpg', '222512.jpg', '295708.jpg'];
+			var image = images[Math.floor(Math.random() * images.length)];
+			document.body.style.backgroundImage = "url('images/" + image + "')";
+			document.body.style.backgroundPosition = 'left top';
+			document.body.style.backgroundSize = 'cover';
+		}
+		// 获取源对象 -- NodeList,是一个类似于数组的对象,具有length属性
+		// 和 forEach()、keys()、values()方法
+		let iconEles = document.querySelectorAll('.icon-item');
+		// 获取目标对象
+		let recycleEle = document.getElementById('recycle');
+		let n;
+		// 依次为源对象添加dragstart事件
+		iconEles.forEach((iconEle, index) => {
+			iconEle.ondragstart = function () {
+				n = index;
+			}
+		});
+
+		// 为目标对象添加dragover事件
+		recycleEle.ondragover = function (event) {
+			event.preventDefault();
+		}
+		// 为目标对象添加drop事件
+		recycleEle.ondrop = function(event){
+			event.stopPropagation();
+			event.preventDefault();
+			//删除NodeList中指定位置图片
+			iconEles[n].remove();
+			// 修改目标对象的URL地址
+			event.target.src = 'images/recycle_bin_full.png';
+		}
+	</script>
+</body>
+
+</html>

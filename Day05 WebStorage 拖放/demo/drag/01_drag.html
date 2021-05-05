@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #div1,#div2{
+      width:100px;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+    #div1{
+      border:2px solid #f00;
+    }
+    #div2{
+      border:2px solid #00f;
+    }
+  </style>
+</head>
+<body>
+  <div id="div1">    
+      <p id="p" draggable="true"></p>
+  </div>
+  <div id="div2"></div>
+  <script>
+    // 获取源对象 -- 段落对象
+    let pEle = document.getElementById('p');
+    pEle.innerText = Math.ceil(Math.random() * 100);
+    // 获取目标对象 -- div对象
+    let divEle = document.getElementById('div2');
+    
+    // 为源对象添加dragstart事件
+    pEle.ondragstart = function(event){      
+      // 获取DataTransfer对象
+      //     拖放事件.dataTransfer
+      let dt = event.dataTransfer;
+      // 设置拖放数据
+      //event.target.innerText----触发拖放事件的HTML内容
+      dt.setData('username',event.target.innerText);
+    }
+
+    // 为目标对象添加dragover事件
+    divEle.ondragover = function(event){
+      event.preventDefault();
+      event.stopPropagation();  
+    }
+
+    // 为目标对象添加drop事件
+    divEle.ondrop = function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      // 获取DataTransfer对象
+      let dt = event.dataTransfer;
+      // 将目标对象的文本设置为DataTransfer对象中保存的拖放数据
+      event.target.innerText = dt.getData('username'); 
+      // 删除源对象
+      pEle.remove();
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <book id="1">
+      <名称>XML完全探索</名称>
+      <price>99</price>
+  </book>
+  <book id="1">
+      <名称>XML完全探索</名称>
+      <价格>99</价格>
+      <img src="a.gif"/>
+  </book>
+  <book id="1">
+      <名称>XML完全探索</名称>
+      <price>99</price>
+  </book>
+</root>

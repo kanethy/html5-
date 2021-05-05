@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <video id="video"></video>
+  <p>
+    <button onclick="changeProperty()">设置媒体属性</button>
+  </p>
+  <script>
+     function changeProperty(){
+       //获取HTMLVideoElement
+       let videoEle = document.getElementById('video');
+       //设置src属性
+       videoEle.src = 'video/video.mp4';      
+       //设置width及height属性
+       videoEle.width = 640;
+       videoEle.height = 360;
+       //设置显示播放控件
+       videoEle.controls = true;
+       //设置自动播放
+       videoEle.autoplay = true;
+       //设置静音播放
+       videoEle.muted = true;
+     }
+
+   
+  </script>
+</body>
+</html>

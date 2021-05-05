@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #charts{
+      width:800px;
+      height: 450px;
+      margin: 0 auto;
+      border:1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="charts"></div>  
+  <script src="scripts/echarts.min.js"></script>
+  <script>
+    //获取DIV元素
+    let divEle = document.getElementById('charts');
+    //通过echarts对象的init()方法来创建图表实例
+    let instance = echarts.init(divEle);
+    //通过实例对象的setOption()方法实现实例的配置
+    instance.setOption({
+      //标题组件
+      title:{
+        show:true,
+        text:'2020年618销售统计图',
+        subtext:'报表人:张三',
+        left:'center'
+      },
+      //X轴组件
+      xAxis:{
+        show:true,
+        type:'category',
+        data:['服装服饰','音像制品','家用电器','家居家具']
+      },
+      //Y轴组件
+      yAxis:{
+        
+      },
+      //系列组件
+      series:[
+        {
+            type:'bar',
+            data:[500,800,720,490]
+        },
+        {
+            type:'line',
+            data:[500,800,720,490]
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

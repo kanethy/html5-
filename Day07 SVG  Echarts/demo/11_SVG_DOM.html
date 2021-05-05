@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <p>
+      <button onclick="drawLine()">单击我，创建SVG中的line元素</button>
+    </p>
+    <script>
+      function drawLine(){
+        //创建指定命名空间内的元素
+        let svgEle = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        //设置SVGSVGElement元素的宽度和高度
+        svgEle.setAttribute('width',800);
+        svgEle.setAttribute('height',400);
+        svgEle.setAttribute('version','1.1');
+        //创建SVGLineElement元素
+        let lineEle = document.createElementNS('http://www.w3.org/2000/svg','line');
+        //设置SVGLineElement元素属性
+        lineEle.setAttribute('x1',50);
+        lineEle.setAttribute('y1',50);
+        lineEle.setAttribute('x2',150);
+        lineEle.setAttribute('y2',50);
+        lineEle.setAttribute('stroke','red');
+        //将line元素添加到SVG元素内部
+        svgEle.appendChild(lineEle);
+        //将SVG元素添加到body元素内
+        document.body.appendChild(svgEle);
+      }
+    </script>
+</body>
+</html>

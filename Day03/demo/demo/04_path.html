@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    let canvasEle = document.getElementById('canvas');
+    canvasEle.width = 600;
+    canvasEle.height = 360;
+    let ctx = canvasEle.getContext('2d');
+    //开始新的路径
+    ctx.beginPath();
+    //指定路径的起点
+    ctx.moveTo(100, 180);
+    //绘制线段
+    ctx.lineTo(300, 180);
+    //根据当前的描边样式来绘制图形
+    ctx.stroke();
+    //开始新的路径
+    ctx.beginPath();
+    //绘制圆弧
+    ctx.arc(400, 180, 50, 0, 2 * Math.PI);
+    //根据当前的描边样式来绘制图形
+    ctx.stroke();
+
+    
+  </script>
+</body>
+
+</html>

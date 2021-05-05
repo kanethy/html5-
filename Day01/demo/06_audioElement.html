@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="createAudio()">单击我，动态的创建音频对象</button>
+  <script>
+    function createAudio(){
+      //创建HTMLAudioElement对象
+      let audioEle = new Audio();
+      //设置音频对象的src属性
+      audioEle.src = 'audio/stronger.mp3';
+      //设置音频对象的控件属性(HTMLMediaElement)
+      audioEle.controls = true;
+      document.body.appendChild(audioEle);
+    }
+  </script>
+</body>
+</html>

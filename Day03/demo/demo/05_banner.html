@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    #canvas {
+      display: block;
+      background: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    //获取HTMLCanvasElement元素
+    let canvasEle = document.getElementById('canvas');
+    //画布宽度与窗口宽度相同
+    canvasEle.width = window.innerWidth;
+    //画布高度为320像素
+    canvasEle.height = 320;
+    //获取CanvasRenderingContext2D对象
+    let ctx = canvasEle.getContext('2d');
+    //设置填充颜色
+    ctx.fillStyle = '#fff';
+    //声明球体对象
+    let circle = {
+      //X轴位置
+      x: Math.floor(Math.random() * canvasEle.width),
+      //Y轴位置
+      y: Math.floor(Math.random() * canvasEle.height),
+      //半径(3~8)
+      radius: Math.ceil(Math.random() * 5) + 3,
+      //速度(如果随机数的2倍超过1,则为正数;否则为负数)
+      xSpeed: Math.random() * 2 > 1 ? Math.random() * 2 : - Math.random() * 2,
+      ySpeed: Math.random() * 2 > 1 ? Math.random() * 2 : - Math.random() * 2
+    }
+
+    console.log(new circle());
+
+    //初始化 -- 绘制一帧
+    function init() {
+      //开始新的路径
+      ctx.beginPath();
+      //指定路径的起点
+      ctx.moveTo(circle.x, circle.y);
+      //通过arc()方法进行绘制路径
+      ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+      //通过fill()方法完成绘制
+      ctx.fill();
+    }
+
+    //循环绘制动画帧
+    function animation(){
+      //清理画布
+      ctx.clearRect(0,0,canvasEle.width,canvasEle.height);
+      //x轴移动的距离 正数向右，负数向左
+      circle.x += circle.xSpeed;
+      //y轴移动的距离 正数向下，负数向上
+      circle.y += circle.ySpeed;
+      //开始新的路径
+      ctx.beginPath();
+      //指定路径的起点
+      ctx.moveTo(circle.x, circle.y);
+      //绘制球体
+      ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+      //通过fill()方法完成绘制
+      ctx.fill();
+      //当球体x轴碰壁时
+      if(circle.x > canvasEle.width - circle.radius || circle.x <= 0){
+        //变换x轴的方向
+        circle.xSpeed = - circle.xSpeed;
+      } 
+      //当球体Y轴碰壁时       
+      if(circle.y > canvasEle.height - circle.radius || circle.y <= 0){
+        //变换y轴的方向
+        circle.ySpeed = - circle.ySpeed;
+      }   
+      window.requestAnimationFrame(animation);
+    }
+    //调用初始化函数
+    init();
+    //调用动画处理函数
+    animation();
+  </script>
+</body>
+
+</html>

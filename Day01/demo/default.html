@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Custom HTML5 Video Player</title>
+  <link rel="stylesheet" href="styles/style.css" type="text/css">
+  <style>
+     body,
+        p,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          margin: 0;
+          padding: 0;
+        }
+    #mask{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 50;
+    }
+    #canvas {
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: 49;
+        }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="video-container" id="video-container">
+      <!-- 为了用户单击右键，不显示显示控件，在视频元素和视频控件按钮中间添加一层div，通过z-index的高低实现 -->
+      <div id="mask"></div>
+
+      <!-- 弹幕区域开始 -->
+      <canvas id="canvas"></canvas>
+      <!-- 弹幕区域结束 -->
+
+      <!-- 视频元素开始 -->
+      <video class="video" id="video" preload="metadata" poster="poster/poster.jpg">
+        <source src="video/video.mp4" type="video/mp4">
+        </source>
+      </video>
+      <!-- 视频元素结束 -->
+      <!-- 视频控制按钮开始 -->
+      <div class="video-controls" id="video-controls">
+        <div class="video-progress">
+          <progress id="progress-bar" value="0" min="0"></progress>
+          <input class="seek" id="seek" value="0" min="0" type="range" step="1">
+        </div>
+        <div class="bottom-controls">
+          <div class="left-controls">
+            <button id="control-button">
+              <img src="icons/play.png" alt="" id="control-icon">
+            </button>
+            <div class="volume-controls">
+              <button id="volume-button">
+                <img src="icons/volume-on.png" alt="" id="volume-icon">
+              </button>
+              <input class="volume" id="volume" data-volume="0.5" value="0.5" type="range" max="1" min="0" step="0.01">
+            </div>
+            <div class="time">
+              <time id="time-elapsed"></time>
+              <span> / </span>
+              <time id="duration"></time>
+            </div>
+          </div>
+          <div class="right-controls">
+            <button id="fullscreen-button">
+              <img src="icons/fullscreen.png" alt="" id="fullsceen-icon">
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 视频控制按钮结束 -->
+    </div>
+    <!-- 弹幕按钮开始 -->
+    <div>
+      <p align='center'>
+        内容：<input type="text" id="text">
+        字号：
+        <select id="size">
+            <option value="18px">小</option>
+            <option value="22px">中</option>
+            <option value="26px">大</option>
+        </select>
+        颜色：
+        <select id="color">
+            <option value="000">黑色</option>
+            <option value="f00">红色</option>
+            <option value="00f">蓝色</option>
+            <option value="0f0">绿色</option>
+        </select>
+        速度：
+        <select id="speed">
+            <option value="1">慢的</option>
+            <option value="3">标准</option>
+            <option value="6">快的</option>
+        </select>
+        <input type="button" value="发送" onclick="send()">
+      </p>
+    </div>
+    <!-- 弹幕按钮结束  后面样式需要调 -->
+  </div>
+  <script src="scripts/video.js"></script>
+  <script src="scripts/barrage.js"></script>
+</body>
+
+</html>

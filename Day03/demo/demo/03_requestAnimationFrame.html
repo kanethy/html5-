@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #canvas{
+      display: block;
+      margin: 0 auto;
+      border:1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <p align="center">
+    <button onclick="play()">开始</button>
+    <button onclick="stop()">停止</button>
+  </p>
+  <script>
+      let canvasEle = document.getElementById('canvas');
+      canvasEle.width = 600;
+      canvasEle.height = 360;
+      let ctx = canvasEle.getContext('2d');
+      let x = 0;
+      let y = 0;
+      let xDistance = 2;      
+      let yDistance = 1.5;
+    
+      //存储由window.requestAnimationFrame()方法返回的requestId
+      let requestId;
+      //声明变量用于假设当前动画的状态
+      let isPlaying = true;
+      
+      //声明颜色的数组变量
+      let colors = ['#f00','#0f0','#00f','#000','#ff0','pink','orange'];
+      
+
+      //封装animation函数
+      function animation(){
+        //擦除整个画布
+        ctx.clearRect(0,0,canvasEle.width,canvasEle.height);
+        ctx.fillRect(x,y,100,100);
+        x += xDistance;
+        y += yDistance;
+        
+        if(x > canvasEle.width - 100 || x <= 0){
+          xDistance = -xDistance; 
+          //每次改变方向（碰到边界）就随机切换colors中的颜色
+          ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+          
+        }        
+        if(y > canvasEle.height - 100 || y <= 0){
+          yDistance = -yDistance; 
+          ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        } 
+        //调用requestAnimation()方法以完成动画的后续帧的绘制
+        //上一帧完了后马上播放下一帧
+        requestId = window.requestAnimationFrame(animation);  
+        
+      }
+
+      function stop(){
+        if(isPlaying == true){
+          //停止动画
+          window.cancelAnimationFrame(requestId);
+          //设置动画的状态为停止
+          isPlaying = false;
+        }
+         
+      }
+      function play(){
+        if(isPlaying == false){
+          //动画播放
+          animation(); 
+          //设置动画的状态为播放
+          isPlaying = true;
+        }
+      }
+    
+      //调用animation函数，开始绘制
+      animation(); //动画的一帧
+  </script>
+</body>
+</html>

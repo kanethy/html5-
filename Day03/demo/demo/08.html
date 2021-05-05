@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,
+        p,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          margin: 0;
+          padding: 0;
+        }
+    
+        ul,
+        ol {
+          list-style: none;
+        }
+        #canvas {
+          display: block;
+          background: #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvasEle=document.getElementById('canvas');
+        canvasEle.width = window.innerWidth;
+        canvasEle.height = 320;
+        let ctx=canvasEle.getContext('2d');
+        let circles=[];
+
+        ctx.fillStyle='rgba(255,255,255,.4)';
+
+        class Circle{
+            constructor(){
+                this.x=Math.floor(Math.random() * canvasEle.width);
+                this.y=Math.floor(Math.random() * canvasEle.height);
+                this.radius=Math.ceil(Math.random() * 5)+3;
+                this.xSpeed=Math.random() * 2 > 1 ? Math.random() * 3 : - Math.random() * 3;
+                this.ySpeed=Math.random() * 2 > 1 ? Math.random() * 3 : - Math.random() * 3;
+            }
+        }
+        
+
+        function init(){
+            for(let n=0;n<150;n++){
+                let circle=new Circle();
+                circles.push(circle);
+
+                ctx.beginPath();
+                ctx.moveTo(circle.x,circle.y);
+                ctx.arc(circle.x,circle.y,circle.radius,0,2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
+        function animation(){
+            ctx.clearRect(0,0,canvasEle.width,canvasEle.height);
+
+            for(let n=0;n<150;n++){
+
+                let circle = circles[n];
+
+                circle.x += circle.xSpeed;
+                circle.y += circle.ySpeed;
+
+                ctx.beginPath();
+                ctx.moveTo(circle.x,circle.y);
+                ctx.arc(circle.x,circle.y,circle.radius,0,2 * Math.PI);
+                ctx.fill();
+
+                if(circle.x > canvasEle.width-circle.radius || circle.x <= 0){
+                    circle.xSpeed = -circle.xSpeed;
+                }
+                if(circle.y > canvasEle.height-circle.radius || circle.y <= 0){
+                    circle.ySpeed = -circle.ySpeed;
+                }
+            }
+            connect();
+            window.requestAnimationFrame(animation);
+        }
+
+        function connect(){
+            for(let n=0;n<150;n++){
+                for(let i=n+1;i<150;i++){
+                    
+                    let distance=Math.sqrt((circles[n].x-circles[i].x) * (circles[n].x-circles[i].x) + (circles[n].y-circles[i].y) *  (circles[n].y-circles[i].y));
+
+                    if(distance <= 60){
+                        ctx.strokeStyle = 'rgba(140,85,31,.8)';
+                        ctx.beginPath();
+                        ctx.moveTo(circles[n].x,circles[n].y);
+                        ctx.lineTo(circles[i].x,circles[i].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animation();
+    </script>
+</body>
+</html>

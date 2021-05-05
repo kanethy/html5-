@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    #canvas {
+      display: block;
+      background: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    //获取HTMLCanvasElement元素
+    let canvasEle = document.getElementById('canvas');
+    //画布宽度与窗口宽度相同
+    canvasEle.width = window.innerWidth;
+    //画布高度为320像素
+    canvasEle.height = 320;
+    //获取CanvasRenderingContext2D对象
+    let ctx = canvasEle.getContext('2d');
+    //设置填充颜色
+    ctx.fillStyle = '#fff';
+    //声明存储50个球体的数组
+    let circles = [];
+
+    //声明球体类，添加构造函数
+    //因为需要得到这个球体，把一个一个球体放到circles数组中，就需要new，所以需要构造函数
+    class Circle{
+      constructor(){
+          //X轴位置
+          this.x = Math.floor(Math.random() * canvasEle.width);
+          //Y轴位置
+          this.y = Math.floor(Math.random() * canvasEle.height);
+          //半径(3~8)
+          this.radius =  Math.ceil(Math.random() * 5) + 3;
+          //速度(如果随机数的2倍超过1,则为正数;否则为负数)
+          this.xSpeed =  Math.random() * 2 > 1 ? Math.random() * 2 : - Math.random() * 2;
+          this.ySpeed =  Math.random() * 2 > 1 ? Math.random() * 2 : - Math.random() * 2;
+      }
+    }
+  
+
+    //初始化 -- 绘制一帧
+    function init() {        
+
+      //循环创建球体对象，共50个
+      for(n =0;n<50;n++)  {
+        //创建球体对象
+        let circle = new Circle();
+        //将新创建的球体对象添加到circles数组中
+        circles.push(circle);
+
+        //开始新的路径
+        ctx.beginPath();
+        //指定路径的起点
+        ctx.moveTo(circle.x, circle.y);
+        //通过arc()方法进行绘制路径
+        ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+        //通过fill()方法完成绘制
+        ctx.fill();
+      }  
+      console.log(circles);
+    }
+
+    //循环绘制动画帧
+    function animation(){
+      //清理画布
+      ctx.clearRect(0,0,canvasEle.width,canvasEle.height);
+
+      //重新画50个球
+      for(let n = 0;n<50;n++){
+          //获取到每一个球体对象
+          let circle = circles[n];
+
+          circle.x += circle.xSpeed;
+          circle.y += circle.ySpeed;
+          //开始新的路径
+          ctx.beginPath();
+          //指定路径的起点
+          ctx.moveTo(circle.x, circle.y);
+          //绘制球体
+          ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+          //通过fill()方法完成绘制
+          ctx.fill();
+          if(circle.x > canvasEle.width - circle.radius || circle.x <= 0){
+            circle.xSpeed = - circle.xSpeed;
+          }        
+          if(circle.y > canvasEle.height - circle.radius || circle.y <= 0){
+            circle.ySpeed = - circle.ySpeed;
+          }  
+      } 
+      window.requestAnimationFrame(animation);
+    }
+
+   
+
+
+    //调用初始化函数
+    init();
+    //调用动画处理函数
+    animation();
+  </script>
+</body>
+
+</html>

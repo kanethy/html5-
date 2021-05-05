@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas{
+            display: block;
+            border: 1px solid red;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        //获取HTMLCanvasElement元素
+        let canvasEle=document.getElementById('canvas');
+        
+        //设置宽度和高度
+        canvasEle.width = 600;
+        canvasEle.height = 300;
+
+        //返回CanvasRenderingContext2D对象
+        let ctx=canvasEle.getContext('2d');
+        
+        //设置文本的字体
+        ctx.font='24px Microsoft Yahei';
+        //设置描边文本的样式
+        ctx.strokeStyle='orange';
+        //设置描边文本
+        ctx.strokeText("web前端",100,100);
+
+        //设置文本的字体
+        ctx.font='30px 华文行楷';
+        //设置填充文本的样式
+        ctx.fillStyle='green';
+        //设置填充文本
+        ctx.fillText("web前端",250,100);
+    </script>
+</body>
+</html>

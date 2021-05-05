@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick='remove()'>删除年龄</button>
+    <button onclick="clearlocal()">清空local</button>
+    <script>
+        //sessionStorage
+        sessionStorage.setItem('uname','lulu');
+        sessionStorage.setItem('age','3');
+        sessionStorage.setItem('sex',true);
+        //localStorage
+        localStorage.setItem('uname','lulu');
+        localStorage.setItem('age','3');
+        localStorage.setItem('sex',true);
+
+        function remove(){
+            sessionStorage.removeItem('age');
+            localStorage.removeItem('age');
+        }
+
+        function clearlocal(){
+            localStorage.clear();
+        }
+    </script>
+</body>
+</html>

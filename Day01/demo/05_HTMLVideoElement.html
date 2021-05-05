@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <video src="video/video.mp4" id="video" width="640" height="360" controls preload="none"></video>
+  <button onclick="addPoster()">添加海报帧</button>
+  <script>
+    //获取HTMLVideoElement对象
+    let videoEle = document.getElementById('video');
+    //输出宽度和高度(必须保证<video>标签存在width和height属性)
+    console.log(videoEle.width);
+    console.log(videoEle.height);
+    //输出视频的原始宽度和高度
+    videoEle.addEventListener('loadeddata',()=>{
+        console.log(videoEle.videoWidth);
+        console.log(videoEle.videoHeight);
+    });
+    function addPoster(){
+      videoEle.poster="poster/poster.jpg";
+      console.log(videoEle.poster);
+    }
+ 
+
+  </script>
+</body>
+</html>

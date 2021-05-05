@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let now =new Date();
+        //两年后的日期
+        now.setFullYear(now.getFullYear()+2);
+        //设置cookie
+        document.cookie='a=1;expires='+now.toUTCString();
+    </script>
+</body>
+</html>

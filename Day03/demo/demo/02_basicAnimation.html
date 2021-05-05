@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #canvas{
+      display: block;
+      margin: 0 auto;
+      border:1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+      // let canvasEle = document.getElementById('canvas');
+      // canvasEle.width = 600;
+      // canvasEle.height = 360;
+      // let ctx = canvasEle.getContext('2d');
+      // let x = 0;
+      // let y = 0;
+      // let xDistance = 6;      
+      // let yDistance = 4;
+      // let i = 0;
+      // //定时绘制
+      // window.setInterval(()=>{
+      //   i++;
+      //   console.log(i);
+      //   //擦除整个画布
+      //   ctx.clearRect(0,0,canvasEle.width,canvasEle.height);
+      //   ctx.strokeRect(x,y,100,100);
+      //   x += xDistance;
+      //   y += yDistance;
+        
+      //   if(x > canvasEle.width - 100 || x <= 0){
+      //     xDistance = -xDistance; 
+      //   }        
+      //   if(y > canvasEle.height - 100 || y <= 0){
+      //     yDistance = -yDistance; 
+      //   }   
+      // },100);
+
+      let canvasEle=document.getElementById('canvas');
+      canvasEle.width=600;
+      canvasEle.height=360;
+      let ctx=canvasEle.getContext('2d');
+      let x=0;
+      let xDistance=10;
+      let y=0;
+      let yDistance=10;
+      window.setInterval(()=>{
+        ctx.clearRect(0,0,canvasEle.width,canvasEle.height);
+        ctx.strokeRect(x,y,100,100);
+        x += xDistance;
+        y += yDistance;
+
+        // if(x >= canvasEle.width-100){
+        //   xDistance=-xDistance;
+        // }
+        // if(x <=0){
+        //   //负负得正
+        //   xDistance=-xDistance;
+        // }
+        //因为上面的代码中， xDistance = -xDistance;，一样，可以用逻辑或简写为
+        if(x >= canvasEle.width-100 || x <= 0){
+          xDistance = -xDistance;
+        }
+        if(y >= canvasEle.height-100 || y <= 0){
+          yDistance = -yDistance;
+        }
+      },100);
+
+      
+  </script>
+</body>
+</html>

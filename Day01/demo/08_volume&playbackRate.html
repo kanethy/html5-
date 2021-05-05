@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,body,div,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,form{
+      margin: 0;
+      padding: 0;
+    }
+    ul,li{
+      list-style: none;
+    }
+    #container{
+      position: relative;
+      width:640px;
+      margin: 0 auto;
+    }
+    #ad{
+      position: absolute;
+      left: 50%;
+      top:50%;
+      width: 400px;
+      height: 300px;
+      margin-left: -200px;
+      margin-top: -180px;
+      z-index: 999;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">    
+    <div id="ad">
+        <img src="ad/0D0100005E40CB833950593579383235.jpg" alt="">
+    </div>
+    <video src="video/video.mp4" class="video" width="640" height="360" controls></video>
+    <p>
+      <span id="currentTime"></span>/<span id="duration"></span>
+      <button onclick="playOrPause()">播放/暂停</button>
+      <button onclick="incVol()">增大音量</button>
+      <button onclick="decVol()">减少音量</button>
+      <button onclick="playrate('0.5')">0.5倍速</button>
+      <button onclick="playrate('1.0')">1.0倍速</button>
+      <button onclick="playrate('1.5')">1.5倍速</button>
+      <button onclick="playrate('2.0')">2.0倍速</button>
+    </p>
+  </div>
+  <script>
+
+    //用于存储广告图像名称
+    let array = [
+      '0D0100005E0DB3591241923143384738.jpg',
+      '0D0100005E2EF493395059357930375A.jpg',
+      '0D0100005E4DDCB31126293290574D55.jpg',
+      '0D0100005E40CB833950593579383235.jpg',
+      '0D0100005E254C951831383513533435.jpg',
+      '0D0100005E4149B13950593579363944.jpg',
+      '0D0100005E42288F9115223570333345.jpg',
+      '0D0100005E588109395059360246315A.jpg',
+    ];
+    //获取HTMLVideoElement对象
+    let videoEle = document.querySelector('.video');    
+
+    //获取广告位(HTMLDivElement)元素
+    let adEle = document.getElementById('ad');
+
+    //监听媒体对象的play事件
+    videoEle.addEventListener('play',()=>{
+        adEle.style.display = 'none';
+    });
+
+    //监听媒体对象的pause事件
+    videoEle.onpause = ()=>{
+      //在array数组里面，随机取一张图片，采用向下取整
+      let image = array[Math.floor(Math.random() * array.length)];
+      adEle.getElementsByTagName('img')[0].src = 'ad/' + image;
+      adEle.style.display = 'block';
+    };
+
+    //监听媒体对象的第一帧加载完成的loadeddata事件
+    videoEle.onloadeddata = ()=>{
+      //获取媒体的当前的播放时间
+      document.getElementById('currentTime').innerText = videoEle.currentTime;
+      //获取媒体的总时长
+      document.getElementById('duration').innerText = parseInt(videoEle.duration);
+      
+    }
+
+    //监听媒体对象的currentTime发生变化的timeupdate事件
+    videoEle.ontimeupdate = ()=>{
+      document.getElementById('currentTime').innerText = parseInt(videoEle.currentTime);
+    }
+
+
+    //播放或暂停
+    function playOrPause() {
+      //获取HTMLVideoElement对象
+      let videoEle = document.querySelector('.video');
+      if(videoEle.paused || videoEle.ended){
+          //媒体播放
+          videoEle.play();
+      } else {
+          //媒体暂停 
+          videoEle.pause();
+      }
+    }
+    //调整播放速率
+    function playrate(val) {
+      //获取HTMLVideoElement对象
+      let videoEle = document.querySelector('.video');
+      //将字符串转换成浮点数
+      val = parseFloat(val);
+      //设置播放速率
+      videoEle.playbackRate = val;
+    }
+    //增大音量
+    function incVol() {
+      //获取HTMLVideoElement对象
+      let videoEle = document.querySelector('.video');
+      //设置音量
+      videoEle.volume = Math.min(1, videoEle.volume + 0.1);
+    }
+    //减少音量
+    function decVol() {
+      //获取HTMLVideoElement对象
+      let videoEle = document.querySelector('.video');
+      //设置音量
+      videoEle.volume = Math.max(0, videoEle.volume - 0.1);
+    }
+  </script>
+</body>
+
+</html>
